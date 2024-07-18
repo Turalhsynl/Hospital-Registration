@@ -70,20 +70,20 @@ namespace Hospital_Registration
                 Doctor doctor = SelectDoctor(department);
                 string timeSlot = SelectTimeSlot(doctor);
 
-                Console.WriteLine($"Tesekkurler {user.FirstName} {user.LastName}, siz {timeSlot} ucun {doctor.FirstName} {doctor.LastName} hekimin qebuluna yazildiniz.");
+                Console.WriteLine($"Thank you, {user.FirstName} {user.LastName}, you have been scheduled for an appointment with Dr. {doctor.FirstName} {doctor.LastName} at {timeSlot}.");
                 SaveData();
             }
         }
 
         private User GetUserDetails()
         {
-            Console.Write("Ad: ");
+            Console.Write("Name: ");
             string firstName = Console.ReadLine();
-            Console.Write("Soyad: ");
+            Console.Write("Surname: ");
             string lastName = Console.ReadLine();
             Console.Write("Email: ");
             string email = Console.ReadLine();
-            Console.Write("Telefon: ");
+            Console.Write("Mobile: ");
             string phone = Console.ReadLine();
 
             return new User(firstName, lastName, email, phone);
@@ -91,7 +91,7 @@ namespace Hospital_Registration
 
         private Department SelectDepartment()
         {
-            Console.WriteLine("Sobe seçin:");
+            Console.WriteLine("Select department:");
             for (int i = 0; i < departments.Count; i++)
             {
                 Console.WriteLine($"{i + 1}. {departments[i].Name}");
@@ -103,10 +103,10 @@ namespace Hospital_Registration
 
         private Doctor SelectDoctor(Department department)
         {
-            Console.WriteLine($"{department.Name} sobesinde olan hekimler:");
+            Console.WriteLine($"Doctor in {department.Name}:");
             for (int i = 0; i < department.Doctors.Count; i++)
             {
-                Console.WriteLine($"{i + 1}. {department.Doctors[i].FirstName} {department.Doctors[i].LastName}, Tecrube: {department.Doctors[i].Experience} il");
+                Console.WriteLine($"{i + 1}. {department.Doctors[i].FirstName} {department.Doctors[i].LastName}, Experiance: {department.Doctors[i].Experience} year");
             }
 
             int choice = int.Parse(Console.ReadLine());
@@ -117,10 +117,10 @@ namespace Hospital_Registration
         {
             while (true)
             {
-                Console.WriteLine($"{doctor.FirstName} {doctor.LastName} hekiminin movcud vaxtlari:");
+                Console.WriteLine($"Doctor {doctor.FirstName} {doctor.LastName}'s free time:");
                 foreach (var timeSlot in doctor.TimeSlots)
                 {
-                    Console.WriteLine($"{timeSlot.Key} - {(timeSlot.Value ? "Rezerv olunub" : "Rezerv olunmayib")}");
+                    Console.WriteLine($"{timeSlot.Key} - {(timeSlot.Value ? "Reserved" : "Not Reserved")}");
                 }
 
                 string selectedTimeSlot = Console.ReadLine();
@@ -132,7 +132,7 @@ namespace Hospital_Registration
                 }
                 else
                 {
-                    Console.WriteLine("Secdiyiniz vaxt artiq rezerv olunub, zehmet olmasa basqa bir vaxt secin.");
+                    Console.WriteLine("Time is reserved, please select other time");
                 }
             }
         }
